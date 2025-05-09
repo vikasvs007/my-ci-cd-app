@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    parameters {
+        booleanParam(name: 'SKIP_DOCKER', defaultValue: true, description: 'Skip Docker build and push stages')
+    }
+
     tools {
         maven 'Maven3.9.9'
         jdk 'OpenJDK21'
@@ -39,6 +43,9 @@ pipeline {
         }
 
         stage('Build Docker Image') {
+            when {
+                expression { return !params.SKIP_DOCKER }
+            }
             steps {
                 script {
                     def pom = readFile('pom.xml')
@@ -59,6 +66,9 @@ pipeline {
         }
 
         stage('Push Docker Image') {
+            when {
+                expression { return !params.SKIP_DOCKER }
+            }
             steps {
                 script {
                     echo "Pushing Docker image to Docker Hub..."
