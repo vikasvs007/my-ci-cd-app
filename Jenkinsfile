@@ -115,7 +115,7 @@ pipeline {
                          <pre>${currentBuild.changeSets.collect { cs -> cs.items.collect { item -> item.msg + ' (' + item.author?.fullName + ' [' + item.author?.id + '])' }.join('\\n') }.join('\\n\\n')}</pre>
                          <hr/>
                          <p>Check console output at <a href='${env.BUILD_URL}console'>${env.BUILD_URL}console</a></p>""",
-                to: "vikasvs6363163@gmail.com", // Using your email from the log, add others as needed
+                to: "vvs634793@gmail.com", // Using your email from the log, add others as needed
                 recipientProviders: [
                     [$class: 'DevelopersRecipientProvider'],
                     [$class: 'RequesterRecipientProvider']
