@@ -41,9 +41,10 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def appVersion = readMavenPom().getVersion()
-                    def artifactId = readMavenPom().getArtifactId()
-                    def jarFileName = "${artifactId}-${appVersion}.jar"
+                    def pom = readFile('pom.xml')
+                    def version = pom =~ /<version>(.*?)<\/version>/
+                    def artifactId = pom =~ /<artifactId>(.*?)<\/artifactId>/
+                    def jarFileName = "${artifactId[0][1]}-${version[0][1]}.jar"
 
                     echo "Building Docker image ${env.DOCKER_IMAGE_NAME}:${env.IMAGE_TAG} using ${jarFileName}"
 
