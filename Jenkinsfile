@@ -27,26 +27,12 @@ pipeline {
         stage('Build & Test') {
             steps {
                 echo 'Running Maven build and tests...'
-                script {
-                    def testFilePath = 'src/test/java/com/example/app/MyCiCdAppApplicationTests.java'
-                    if (fileExists(testFilePath)) {
-                        echo "SUCCESS: Test file '${testFilePath}' exists."
-                    } else {
-                        echo "ERROR: Test file not found. Listing directories for diagnosis..."
-                        bat 'dir src\\test\\java\\com\\example\\app'
-                        bat 'dir src\\test\\java\\com\\example'
-                        bat 'dir src\\test\\java\\com'
-                        bat 'dir src\\test\\java'
-                        bat 'dir src\\test'
-                        bat 'dir src'
-                    }
-                }
                 bat 'mvn clean install -e'
             }
             post {
                 always {
                     echo 'Archiving test results and artifacts...'
-                    junit testResults: 'target/surefire-reports/*.xml', allowEmptyResults: true
+                    junit testResults: 'target/surefire-reports/*.xml', allowEmptyResults: false
                     archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
                 }
             }
