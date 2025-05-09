@@ -52,36 +52,36 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    def appVersion = readMavenPom().getVersion()
-                    def artifactId = readMavenPom().getArtifactId()
-                    def jarFileName = "${artifactId}-${appVersion}.jar"
+    //     stage('Build Docker Image') {
+    //         steps {
+    //             script {
+    //                 def appVersion = readMavenPom().getVersion()
+    //                 def artifactId = readMavenPom().getArtifactId()
+    //                 def jarFileName = "${artifactId}-${appVersion}.jar"
 
-                    echo "Building Docker image ${env.DOCKER_IMAGE_NAME}:${env.IMAGE_TAG} using ${jarFileName}"
+    //                 echo "Building Docker image ${env.DOCKER_IMAGE_NAME}:${env.IMAGE_TAG} using ${jarFileName}"
 
-                    docker.withRegistry('https://index.docker.io/v1/', env.DOCKERHUB_CREDENTIALS_ID) {
-                        docker.build(
-                            "${env.DOCKER_IMAGE_NAME}:${env.IMAGE_TAG}",
-                            "--build-arg JAR_FILE=target/${jarFileName} ."
-                        )
-                    }
-                }
-            }
-        }
+    //                 docker.withRegistry('https://index.docker.io/v1/', env.DOCKERHUB_CREDENTIALS_ID) {
+    //                     docker.build(
+    //                         "${env.DOCKER_IMAGE_NAME}:${env.IMAGE_TAG}",
+    //                         "--build-arg JAR_FILE=target/${jarFileName} ."
+    //                     )
+    //                 }
+    //             }
+    //         }
+    //     }
 
-        stage('Push Docker Image') {
-            steps {
-                script {
-                    echo "Pushing Docker image to Docker Hub..."
-                    docker.withRegistry('https://index.docker.io/v1/', env.DOCKERHUB_CREDENTIALS_ID) {
-                        docker.image("${env.DOCKER_IMAGE_NAME}:${env.IMAGE_TAG}").push()
-                    }
-                }
-            }
-        }
-    }
+    //     stage('Push Docker Image') {
+    //         steps {
+    //             script {
+    //                 echo "Pushing Docker image to Docker Hub..."
+    //                 docker.withRegistry('https://index.docker.io/v1/', env.DOCKERHUB_CREDENTIALS_ID) {
+    //                     docker.image("${env.DOCKER_IMAGE_NAME}:${env.IMAGE_TAG}").push()
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
     post {
         always {
