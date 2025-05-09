@@ -3,8 +3,8 @@ pipeline {
 
     tools {
         // These names must match what you configured in Jenkins Global Tool Configuration
-        maven 'Maven3.8.x' // Or your configured Maven name
-        jdk 'OpenJDK11'      // Or your configured JDK name
+        maven 'Maven3.9.9' // Or your configured Maven name
+        jdk 'OpenJDK21'      // Or your configured JDK name
     }
 
     environment {
