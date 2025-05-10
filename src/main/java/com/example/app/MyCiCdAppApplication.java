@@ -13,6 +13,6 @@ public class MyCiCdAppApplication {
     }
     @GetMapping("/")
     public String hello() {
-        return "Hello from CI/CD App  from vikass!"
+        return "Hello from CI/CD App  from vikass!";
     }
 }
