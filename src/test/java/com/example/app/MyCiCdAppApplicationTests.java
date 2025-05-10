@@ -18,6 +18,6 @@ class MyCiCdAppApplicationTests {
     @Test
     public void helloShouldReturnDefaultMessage() throws Exception {
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
-                String.class)).contains("Hello from CI/CD App!");
+                String.class)).contains("Hello from CI/CD App  from vikass!");
     }
 }
